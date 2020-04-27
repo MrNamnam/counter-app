@@ -1,0 +1,14 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center;color:black">
+  <h1>Counter Manager App</h1>
+  <p style="line-height: 0.1;">Current Counter</p>
+  <h3><span style='border:1px lightgrey solid;padding:5px;width:20px;margin:10px'>{{ counter }}</span></h3>
+  <br />
+  <h1>All devices:</h1>
+  <p><span style='border:1px lightgrey solid;padding:15px; white-space: pre;' *ngFor="let device of devices">{{device}}
+      <button style="background-color: rgb(39, 109, 155); color: white; margin-left:20px;"
+        (click)="increaseCounter()">+</button>
+      <button style="background-color: rgb(39, 109, 155); color: white;" (click)="pushButton()">+</button></span>
+  </p>
+
+</div>
