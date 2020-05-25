@@ -1,14 +1,127 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center;color:black">
-  <h1>Counter Manager App</h1>
-  <p style="line-height: 0.1;">Current Counter</p>
-  <h3><span style='border:1px lightgrey solid;padding:5px;width:20px;margin:10px'>{{ counter }}</span></h3>
-  <br />
-  <h1>All devices:</h1>
-  <p><span style='border:1px lightgrey solid;padding:15px; white-space: pre;' *ngFor="let device of devices">{{device}}
-      <button style="background-color: rgb(39, 109, 155); color: white; margin-left:20px;"
-        (click)="increaseCounter()">+</button>
-      <button style="background-color: rgb(39, 109, 155); color: white;" (click)="pushButton()">+</button></span>
-  </p>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
+<div class="header">
+  <span class="menu_h1">
+     <h1 class="h1Head">Fire Force Control Board</h1>
+  </span>
+   
+  <span class="menu">
+    <button class="menuButton" (click)="changeToPage('AlertsPage')">Alerts</button>
+    <button class="menuButton" (click)="changeToPage('devicePage')">Devices</button>
+    <button class="menuButton" (click)="changeToPage('historyAlertsPage')">Alerts History</button>
+    <button class="menuButton" (click)="changeToPage('aboutPage')">About</button>
+  </span>
+  <hr>
 </div>
+
+<div *ngIf="page=='AlertsPage'">
+  <mat-accordion>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Personal data
+        </mat-panel-title>
+        <mat-panel-description>
+          Type your name and age
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+  
+      <mat-form-field>
+        <mat-label>First name</mat-label>
+        <input matInput>
+      </mat-form-field>
+  
+      <mat-form-field>
+        <mat-label>Age</mat-label>
+        <input matInput type="number" min="1">
+      </mat-form-field>
+    </mat-expansion-panel>
+    <mat-expansion-panel *ngFor = "let alert of ALERTS_DATA"
+                         (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Device id: {{alert["alert_obj"].RowKey}} is alerting
+        </mat-panel-title>
+        <mat-panel-description>
+          Client phone number: {{alert["client_obj"].phone}}
+          <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <p>Is it False Alarm?
+        <mat-checkbox [(ngModel)]="checked"></mat-checkbox>
+      </p>
+      <input matInput type="text" [(ngModel)]="injured" placeholder="Number of injured" [disabled]="checked">
+      <input matInput #message maxlength="50" placeholder="Event details">
+      <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="addAlert(alert['alert_obj'].RowKey, alert['client_obj'].phone)">
+        <mat-icon>send</mat-icon>
+      </button>
+
+          
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
+
+
+<div *ngIf="page=='devicePage'">
+  <mat-tree [dataSource]="dataSourceTree" [treeControl]="treeControl">
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+      <!-- use a disabled button to provide padding for tree leaf -->
+      <button class="ButtonTree" mat-icon-button disabled></button>
+      {{node.name}}
+    </mat-tree-node>
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+      <button class="ButtonTree" mat-icon-button matTreeNodeToggle
+              [attr.aria-label]="'toggle ' + node.name">
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+        </mat-icon>
+      </button>
+      {{node.name}}
+    </mat-tree-node>
+  </mat-tree>
+</div>
+
+<div *ngIf="page=='historyAlertsPage'">
+  <h1>Current Alerts:</h1>
+  <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="position">
+      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    </ng-container>
+  
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>
+
+<div *ngIf="page=='aboutPage'">
+  <p><span style='border:1px lightgrey solid;padding:15px; white-space: pre;' *ngFor="let device of devices">{{device}}
+    <button style="background-color: rgb(39, 109, 155); color: white; margin-left:20px;"
+      (click)="increaseCounter()">+</button>
+    <button style="background-color: rgb(39, 109, 155); color: white;" (click)="pushButton()">+</button></span>
+</p>
+</div>
+

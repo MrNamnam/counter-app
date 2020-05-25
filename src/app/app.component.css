@@ -1,0 +1,49 @@
+
+.ButtonTree{
+    background-color: white;
+}
+
+
+body{
+    margin: 0px;
+}
+
+.header{
+    background-color: cadetblue;
+    margin: 0px;
+}
+
+.menu_h1{
+    top: 20px;
+}
+
+  .h1Head{
+    font-size: 20px;
+    margin: 0px;
+    color: black;
+  }
+
+  .menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .menuButton{
+      margin: 50px;
+      margin-bottom: 5px;
+      background-color: cadetblue;
+      font-family: Georgia, 'Times New Roman', Times, serif;
+      border-width: 0px;
+      font-size: 20px;   
+  }
+
+  .menuButton:hover{
+      color: darkmagenta;
+}
+
+  hr{
+      margin: 0px;
+      color: black;
+  }
+  
