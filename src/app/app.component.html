@@ -2,9 +2,9 @@
 
 <div class="header">
   <span class="menu_h1">
-     <h1 class="h1Head">Fire Force Control Board</h1>
+    <h1 class="h1Head">Fire Force Control Board</h1>
   </span>
-   
+
   <span class="menu">
     <button class="menuButton" (click)="changeToPage('AlertsPage')">Alerts</button>
     <button class="menuButton" (click)="changeToPage('devicePage')">Devices</button>
@@ -25,18 +25,18 @@
           Type your name and age
         </mat-panel-description>
       </mat-expansion-panel-header>
-  
+
       <mat-form-field>
         <mat-label>First name</mat-label>
         <input matInput>
       </mat-form-field>
-  
+
       <mat-form-field>
         <mat-label>Age</mat-label>
         <input matInput type="number" min="1">
       </mat-form-field>
     </mat-expansion-panel>
-    <mat-expansion-panel *ngFor = "let alert of ALERTS_DATA"
+    <mat-expansion-panel *ngFor="let alert of ALERTS_DATA"
                          (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
@@ -49,16 +49,17 @@
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <p>Is it False Alarm?
+      <p>
+        Is it False Alarm?
         <mat-checkbox [(ngModel)]="checked"></mat-checkbox>
       </p>
       <input matInput type="text" [(ngModel)]="injured" placeholder="Number of injured" [disabled]="checked">
       <input matInput #message maxlength="50" placeholder="Event details">
-      <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="addAlert(alert['alert_obj'].RowKey, alert['client_obj'].phone)">
+      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="addAlert(alert['alert_obj'].RowKey, alert['client_obj'].phone)">
         <mat-icon>send</mat-icon>
       </button>
 
-          
+
     </mat-expansion-panel>
   </mat-accordion>
 </div>
@@ -85,43 +86,72 @@
   </mat-tree>
 </div>
 
+
+
+<!-- lina : -->
 <div *ngIf="page=='historyAlertsPage'">
-  <h1>Current Alerts:</h1>
+  <h1>Alerts History:</h1>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
     <!-- Position Column -->
-    <ng-container matColumnDef="position">
-      <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.position}} </mat-cell>
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Device ID </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["device_id"]}} </mat-cell>
     </ng-container>
-  
+
     <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+    <ng-container matColumnDef="city">
+      <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["city"]}} </mat-cell>
     </ng-container>
-  
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
-      <mat-header-cell *matHeaderCellDef> Weight </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.weight}} </mat-cell>
-    </ng-container>
-  
+
+
     <!-- Symbol Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef> Symbol </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.symbol}} </mat-cell>
+    <ng-container matColumnDef="lat">
+      <mat-header-cell *matHeaderCellDef> Latitude </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["latitude"]}} </mat-cell>
     </ng-container>
-  
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="lon">
+      <mat-header-cell *matHeaderCellDef> Longitude </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["longitude"]}} </mat-cell>
+    </ng-container>
+
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="details">
+      <mat-header-cell *matHeaderCellDef> Event Details </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["event_details"]}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="bool">
+      <mat-header-cell *matHeaderCellDef> False/True Alarm </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["is_true_alarm"]}} </mat-cell>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="number">
+      <mat-header-cell *matHeaderCellDef> No. Of Injuries </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element["alertElement"]["num_of_injured"]}} </mat-cell>
+    </ng-container>
+
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 </div>
 
 <div *ngIf="page=='aboutPage'">
-  <p><span style='border:1px lightgrey solid;padding:15px; white-space: pre;' *ngFor="let device of devices">{{device}}
-    <button style="background-color: rgb(39, 109, 155); color: white; margin-left:20px;"
-      (click)="increaseCounter()">+</button>
-    <button style="background-color: rgb(39, 109, 155); color: white;" (click)="pushButton()">+</button></span>
-</p>
+  <p>
+    <span style='border:1px lightgrey solid;padding:15px; white-space: pre;' *ngFor="let device of devices">
+      {{device}}
+      <button style="background-color: rgb(39, 109, 155); color: white; margin-left:20px;"
+              (click)="increaseCounter()">
+        +
+      </button>
+      <button style="background-color: rgb(39, 109, 155); color: white;" (click)="pushButton()">+</button>
+    </span>
+  </p>
 </div>
 

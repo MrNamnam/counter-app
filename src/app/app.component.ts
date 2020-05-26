@@ -37,26 +37,29 @@ interface Counter {
   id: number;
   count: number;
 }
-
+/*
 interface PeriodicElement {
   name: string;
   position: number;
   weight: number;
   symbol: string;
+  symbol1: string;
+  symbol2: string;
+  symbol3: string;
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H', symbol1:'1',symbol3:'3' ,symbol2:'2'},
+  { position: 2, name: 'Helium', weight: 4.0026, symbol: 'He', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 5, name: 'Boron', weight: 10.811, symbol: 'B', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F', symbol1: '1', symbol3: '3', symbol2: '2'},
+  { position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne', symbol1: '1', symbol3: '3', symbol2: '2'},
+];*/
 
 
 interface FoodNode {
@@ -132,6 +135,10 @@ export class AppComponent {
   private readonly getActiveEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/CurrentAlerts?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
   private readonly getClientData = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/ClientsTable?"
   //?$filter=RowKey%20eq%20"
+
+  // lina:
+  private readonly getHistoryEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/DetectorsEvents?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
+
   private readonly connectionStringStorage = "sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
   private readonly counterId = 1;
 
@@ -140,20 +147,35 @@ export class AppComponent {
   public devices: string[] = ["bla", "bla1"];
   public events: JSON;
   public page: string;
-  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  public dataSource: PeriodicElement[];
+
+  // lina:
+  public displayedColumns: string[] = ['id', 'city', 'lat', 'lon','details','bool','number'];
+  public dataSource: object[];
+
   
   public clientsData: object
   public alerts: object
   public ALERTS_DATA:  AlertNode[];
 
   constructor(private readonly http: HttpClient) {
-    this.dataSource = ELEMENT_DATA;
+    this.dataSource = [];
     // this.dataSourceTree.data = TREE_DATA;
     this.ALERTS_DATA = [];
     
 
     const negotiateBody = { UserId: "SomeUser" };
+
+
+
+
+    // lina :
+    this.http.get<JSON>(this.getHistoryEvents, this.httpOptions).subscribe(History => {
+      for (var key in History["value"]) {
+        console.log(History)
+        this.CreateHistoryAlerts(History["value"][key])
+      }
+        console.log(this.dataSource)
+    });
 
     // this.http
     //   .post<SignalRConnection>(this.negotiateUrl, JSON.stringify(negotiateBody), this.httpOptions)
@@ -201,6 +223,7 @@ export class AppComponent {
     this.printAlertsData(this.ALERTS_DATA["0"]["alert_obj"].device_id)    
   }
 
+
   public printAlertsData(al): void {
     console.log(al)
   }
@@ -239,8 +262,11 @@ export class AppComponent {
     console.log(client)
   }
 
-
-
+// lina :
+  public CreateHistoryAlerts(alertElement): void {
+    console.log(alertElement)
+    this.dataSource.push({ alertElement})
+  }
 
 }
 
