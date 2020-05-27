@@ -9,7 +9,9 @@ body{
 }
 
 .header {
-  background-color: #ffcc00;
+  background: rgb(255,204,0);
+  background: radial-gradient(circle, rgba(255,204,0,1) 0%, rgba(229,85,46,1) 100%);
+  /* background-color: #ffcc00;*/
   margin: 0px;
 }
 
@@ -23,7 +25,8 @@ body{
     padding-top : 30px;
     padding-bottom: 30px;
     color: black;
-    text-align: center
+    text-align: center;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
   }
 
   .menu{
@@ -59,11 +62,6 @@ body{
   color: #330000;
 }
 
-.s span {
-  display: block;
-  width: 100%;
-  background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(110,110,110,0.63) 43%,rgba(255,255,255,0.01) 100%);
-}
 
 .redText {
   color: red;
