@@ -2,7 +2,7 @@
 
 <div class="header">
   <span class="menu_h1">
-    <h1 class="h1Head" style="color: #990000">Fire Force Control Board</h1>
+    <h1 class="h1Head" style="color: #990000 ;font-family: Stencil Std, fantasy">Fire Force Control Board</h1>
   </span>
 
   <span class="menu">
@@ -16,23 +16,23 @@
 
 <div *ngIf="page=='AlertsPage'">
   <mat-accordion>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          Personal data
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-    </mat-expansion-panel>
+    <h1 class="alerthdr">Urgent Alerts</h1>
     <mat-expansion-panel *ngFor="let alert of ALERTS_DATA"
                          (opened)="panelOpenState = true"
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Device id: {{alert["alert_obj"].RowKey}} is alerting
+           Device ID : {{  alert["alert_obj"].RowKey}}<span class="redText" style="padding-left:2em"> is alerting </span>
+        </mat-panel-title>
+        <mat-panel-title>
+           Client's Name : {{  alert["alert_obj"].RowKey}} is alerting 
+        </mat-panel-title>
+        <mat-panel-title>
+           Client's Email : {{  alert["alert_obj"].RowKey}} is alerting 
         </mat-panel-title>
         <mat-panel-description>
-          Client phone number: {{alert["client_obj"].phone}}
-          <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
+            Client's Phone Number: {{alert["client_obj"].phone}}
+            <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
         </mat-panel-description>
       </mat-expansion-panel-header>
 

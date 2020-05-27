@@ -1,6 +1,6 @@
 
-.ButtonTree{
-    background-color: white;
+.ButtonTree {
+  background-color: white;
 }
 
 
@@ -37,7 +37,7 @@ body{
   margin-bottom: 0px;
   margin-top: auto;
   background-color: #ffcc00;
-  font-family: Georgia, 'Times New Roman', Times, serif;
+  font-family: Impact, 'Times New Roman', Times, serif;
   border-width: 0px;
   font-size: 20px;
   cursor: pointer;
@@ -54,11 +54,17 @@ body{
   }
 
 .alerthdr {
-  text-align: center
+  text-align: center;
+  font-family: Verdana;
+  color: #330000;
 }
 
 .s span {
   display: block;
   width: 100%;
   background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(110,110,110,0.63) 43%,rgba(255,255,255,0.01) 100%);
+}
+
+.redText {
+  color: red;
 }
