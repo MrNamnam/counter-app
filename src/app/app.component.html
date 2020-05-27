@@ -22,7 +22,7 @@
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Device ID : {{  alert["alert_obj"].RowKey}}<span class="redText" style="padding-left:2em"> is alerting </span>
+          Device ID : {{  alert["alert_obj"].RowKey}}<span class="redText" style="padding-left:0.5em"> is alerting </span>
         </mat-panel-title>
         <mat-panel-title>
           Latitude : {{  alert["alert_obj"].Latitude}}
@@ -92,6 +92,12 @@
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["device_id"]}} </mat-cell>
     </ng-container>
 
+    <!-- lonlat Column -->
+    <ng-container matColumnDef="country">
+      <mat-header-cell *matHeaderCellDef><b> Country </b></mat-header-cell>
+      <mat-cell *matCellDef> {{lonlatArr["country"]}} </mat-cell>
+    </ng-container>
+
     <!-- Name Column -->
     <ng-container matColumnDef="city">
       <mat-header-cell *matHeaderCellDef><b> City </b></mat-header-cell>
@@ -112,13 +118,13 @@
     </ng-container>
 
 
-    <!-- Weight Column -->
+    <!-- details Column -->
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef><b> Event Details</b> </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["event_details"]}} </mat-cell>
     </ng-container>
 
-    <!-- Symbol Column -->
+    <!-- alarm Column -->
     <ng-container matColumnDef="bool">
       <mat-header-cell *matHeaderCellDef><b> False/True Alarm </b></mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["is_true_alarm"]}} </mat-cell>

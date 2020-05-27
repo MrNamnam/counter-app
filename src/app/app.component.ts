@@ -149,10 +149,12 @@ export class AppComponent {
   public page: string;
 
   // lina:
-  public displayedColumns: string[] = ['id', 'city', 'lat', 'lon','details','bool','number'];
+  public displayedColumns: string[] = ['id', 'city', 'country', 'lat', 'lon','details','bool','number'];
   public dataSource: object[];
+  //lonlat
+  private readonly getLonLat = "https://nominatim.openstreetmap.org/lookup?osm_ids=R146006,W100093803,N240109189&format=json";
+  public lonlatArr: string[];
 
-  
   public clientsData: object
   public alerts: object
   public ALERTS_DATA:  AlertNode[];
@@ -175,6 +177,14 @@ export class AppComponent {
         this.CreateHistoryAlerts(History["value"][key])
       }
         console.log(this.dataSource)
+    });
+
+    //lonlat
+    this.http.get<JSON>(this.getLonLat, this.httpOptions).subscribe(lonlat => {
+      console.log(lonlat)
+      this.lonlatArr = lonlat["0"]["address"];
+     //  this.CreateHistoryAlerts(lonlat["0"])
+        console.log(this.lonlatArr)
     });
 
     // this.http
@@ -267,6 +277,7 @@ export class AppComponent {
     console.log(alertElement)
     this.dataSource.push({ alertElement})
   }
+
 
 }
 
