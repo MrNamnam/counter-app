@@ -22,17 +22,23 @@
                          (closed)="panelOpenState = false">
       <mat-expansion-panel-header>
         <mat-panel-title>
-           Device ID : {{  alert["alert_obj"].RowKey}}<span class="redText" style="padding-left:2em"> is alerting </span>
+          Device ID : {{  alert["alert_obj"].RowKey}}<span class="redText" style="padding-left:2em"> is alerting </span>
         </mat-panel-title>
         <mat-panel-title>
-           Client's Name : {{  alert["alert_obj"].RowKey}} is alerting 
+          Latitude : {{  alert["alert_obj"].Latitude}}
         </mat-panel-title>
         <mat-panel-title>
-           Client's Email : {{  alert["alert_obj"].RowKey}} is alerting 
+          Longitude : {{  alert["alert_obj"].Longitude}}
+        </mat-panel-title>
+        <mat-panel-title>
+          Client's Name : {{  alert["client_obj"].name}}
+        </mat-panel-title>
+        <mat-panel-title>
+          Client's Email : {{  alert["client_obj"].email}}
         </mat-panel-title>
         <mat-panel-description>
-            Client's Phone Number: {{alert["client_obj"].phone}}
-            <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
+          Client's Phone Number : {{alert["client_obj"].phone_number}}
+          <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
         </mat-panel-description>
       </mat-expansion-panel-header>
 
