@@ -44,7 +44,7 @@
           Device id: {{alert["alert_obj"].RowKey}} is alerting
         </mat-panel-title>
         <mat-panel-description>
-          Client phone number: {{alert["client_obj"].phone}}
+          Client phone number: {{alert["client_obj"].phone_number}}
           <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
         </mat-panel-description>
       </mat-expansion-panel-header>
@@ -54,7 +54,9 @@
       </p>
       <input matInput type="text" [(ngModel)]="injured" placeholder="Number of injured" [disabled]="checked">
       <input matInput #message maxlength="50" placeholder="Event details">
-      <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="addAlert(alert['alert_obj'].RowKey, alert['client_obj'].phone)">
+      <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="submitEvent(alert['alert_obj'].PartitionKey,
+       alert['alert_obj'].RowKey, alert['alert_obj'].longitude, alert['alert_obj'].latitude, alert['alert_obj'].time,
+       checked, details, injured)">
         <mat-icon>send</mat-icon>
       </button>
 
