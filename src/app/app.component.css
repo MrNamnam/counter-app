@@ -8,9 +8,9 @@ body{
     margin: 0px;
 }
 
-.header{
-    background-color: cadetblue;
-    margin: 0px;
+.header {
+  background-color: #ffcc00;
+  margin: 0px;
 }
 
 .menu_h1{
@@ -18,9 +18,12 @@ body{
 }
 
   .h1Head{
-    font-size: 20px;
+    font-size: 30px;
     margin: 0px;
+    padding-top : 10px;
+    padding-bottom: 10px;
     color: black;
+    text-align: center
   }
 
   .menu{
@@ -29,14 +32,17 @@ body{
     align-items: center;
   }
 
-  .menuButton{
-      margin: 50px;
-      margin-bottom: 5px;
-      background-color: cadetblue;
-      font-family: Georgia, 'Times New Roman', Times, serif;
-      border-width: 0px;
-      font-size: 20px;   
-  }
+.menuButton {
+  margin: 100px;
+  margin-bottom: 0px;
+  margin-top: auto;
+  background-color: #ffcc00;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  border-width: 0px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #330000;
+}
 
   .menuButton:hover{
       color: darkmagenta;
@@ -46,4 +52,13 @@ body{
       margin: 0px;
       color: black;
   }
-  
+
+.alerthdr {
+  text-align: center
+}
+
+.s span {
+  display: block;
+  width: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,1) 0%,rgba(110,110,110,0.63) 43%,rgba(255,255,255,0.01) 100%);
+}

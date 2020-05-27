@@ -2,7 +2,7 @@
 
 <div class="header">
   <span class="menu_h1">
-    <h1 class="h1Head">Fire Force Control Board</h1>
+    <h1 class="h1Head" style="color: #990000">Fire Force Control Board</h1>
   </span>
 
   <span class="menu">
@@ -21,20 +21,7 @@
         <mat-panel-title>
           Personal data
         </mat-panel-title>
-        <mat-panel-description>
-          Type your name and age
-        </mat-panel-description>
       </mat-expansion-panel-header>
-
-      <mat-form-field>
-        <mat-label>First name</mat-label>
-        <input matInput>
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>Age</mat-label>
-        <input matInput type="number" min="1">
-      </mat-form-field>
     </mat-expansion-panel>
     <mat-expansion-panel *ngFor="let alert of ALERTS_DATA"
                          (opened)="panelOpenState = true"
@@ -90,50 +77,50 @@
 
 <!-- lina : -->
 <div *ngIf="page=='historyAlertsPage'">
-  <h1>Alerts History:</h1>
+  <h1 class="alerthdr">Alerts History</h1>
   <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!-- Position Column -->
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef> Device ID </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> Device ID </b></mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["device_id"]}} </mat-cell>
     </ng-container>
 
     <!-- Name Column -->
     <ng-container matColumnDef="city">
-      <mat-header-cell *matHeaderCellDef> City </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> City </b></mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["city"]}} </mat-cell>
     </ng-container>
 
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="lat">
-      <mat-header-cell *matHeaderCellDef> Latitude </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> Latitude </b></mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["latitude"]}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="lon">
-      <mat-header-cell *matHeaderCellDef> Longitude </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> Longitude</b> </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["longitude"]}} </mat-cell>
     </ng-container>
 
 
     <!-- Weight Column -->
     <ng-container matColumnDef="details">
-      <mat-header-cell *matHeaderCellDef> Event Details </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> Event Details</b> </mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["event_details"]}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="bool">
-      <mat-header-cell *matHeaderCellDef> False/True Alarm </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> False/True Alarm </b></mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["is_true_alarm"]}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="number">
-      <mat-header-cell *matHeaderCellDef> No. Of Injuries </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef><b> No. Of Injuries </b></mat-header-cell>
       <mat-cell *matCellDef="let element"> {{element["alertElement"]["num_of_injured"]}} </mat-cell>
     </ng-container>
 
