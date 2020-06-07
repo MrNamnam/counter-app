@@ -37,32 +37,20 @@
           Client's Email : {{  alert["client_obj"].email}}
         </mat-panel-title>
         <mat-panel-description>
-<<<<<<< HEAD
-          Client phone number: {{alert["client_obj"].phone_number}}
-=======
           Client's Phone Number : {{alert["client_obj"].phone_number}}
->>>>>>> fdc0ca8f2d2de3aaa0c385e1338187c49c1eff5b
           <!-- Currently I am {{panelOpenState ? 'open' : 'closed'}} -->
         </mat-panel-description>
       </mat-expansion-panel-header>
 
-      <p>
         Is it False Alarm?
-        <mat-checkbox [(ngModel)]="checked"></mat-checkbox>
-      </p>
-      <input matInput type="text" [(ngModel)]="injured" placeholder="Number of injured" [disabled]="checked">
-      <input matInput #message maxlength="50" placeholder="Event details">
-<<<<<<< HEAD
-      <button mat-button  matSuffix mat-icon-button aria-label="Clear" (click)="submitEvent(alert['alert_obj'].PartitionKey,
-       alert['alert_obj'].RowKey, alert['alert_obj'].longitude, alert['alert_obj'].latitude, alert['alert_obj'].time,
+        <mat-checkbox  (change)="changeDisabled()"></mat-checkbox>
+      <input matInput type="number" [(ngModel)]="injured" placeholder="Number of injured" [disabled]="checked">
+      <input matInput #message maxlength="50" [(ngModel)]="details" placeholder="Event details" [disabled]="checked">
+      <button mat-button  matSuffix mat-icon-button (click)="submitEvent(alert['alert_obj'].RowKey, alert['alert_obj'].PartitionKey,
+       alert['alert_obj'].longitude, alert['alert_obj'].latitude, alert['alert_obj'].time,
        checked, details, injured)">
-=======
-      <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="addAlert(alert['alert_obj'].RowKey, alert['client_obj'].phone)">
->>>>>>> fdc0ca8f2d2de3aaa0c385e1338187c49c1eff5b
         <mat-icon>send</mat-icon>
       </button>
-
-
     </mat-expansion-panel>
   </mat-accordion>
 </div>
@@ -99,7 +87,7 @@
     <!-- Position Column -->
     <ng-container matColumnDef="id">
       <mat-header-cell *matHeaderCellDef><b> Device ID </b></mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["device_id"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["PartitionKey"]}} </mat-cell>
     </ng-container>
 
     <!-- lonlat Column -->
@@ -111,39 +99,39 @@
     <!-- Name Column -->
     <ng-container matColumnDef="city">
       <mat-header-cell *matHeaderCellDef><b> City </b></mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["city"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["adress"]}} </mat-cell>
     </ng-container>
 
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="lat">
       <mat-header-cell *matHeaderCellDef><b> Latitude </b></mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["latitude"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["latitude"]}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="lon">
       <mat-header-cell *matHeaderCellDef><b> Longitude</b> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["longitude"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["longitude"]}} </mat-cell>
     </ng-container>
 
 
     <!-- details Column -->
     <ng-container matColumnDef="details">
       <mat-header-cell *matHeaderCellDef><b> Event Details</b> </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["event_details"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["event_details"]}} </mat-cell>
     </ng-container>
 
     <!-- alarm Column -->
     <ng-container matColumnDef="bool">
       <mat-header-cell *matHeaderCellDef><b> False/True Alarm </b></mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["is_true_alarm"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["is_false_alarm"]}} </mat-cell>
     </ng-container>
 
     <!-- Symbol Column -->
     <ng-container matColumnDef="number">
       <mat-header-cell *matHeaderCellDef><b> No. Of Injuries </b></mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element["alertElement"]["num_of_injured"]}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element["num_of_injured"]}} </mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

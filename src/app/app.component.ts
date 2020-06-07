@@ -148,7 +148,7 @@ export class AppComponent {
   private readonly getIotDevicesUrl = "https://cors-anywhere.herokuapp.com/https://counterfunctions20200425175523.azurewebsites.net/api/devices";
   private readonly pushButtonUrl = "https://cors-anywhere.herokuapp.com/https://counterfunctions20200425175523.azurewebsites.net/api/pushButton";
   private readonly getActiveEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/CurrentAlerts?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
-  private readonly getClientData = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/ClientsTable?"
+  private readonly getClientData = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/ClientsTable()"
   private readonly addEvent = "http://localhost:7071/api/add-event"
   private readonly deleteCurrent = "http://localhost:7071/api/delete-alert"
   //?$filter=RowKey%20eq%20"
@@ -156,7 +156,7 @@ export class AppComponent {
   // lina:
   private readonly getHistoryEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/DetectorsEvents?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
 
-  private readonly connectionStringStorage = "sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
+  private readonly connectionStringStorage = "?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-08-08T06:17:45Z&st=2020-06-02T22:17:45Z&spr=https&sig=ez4xdZR94dP9%2FB8Czup%2FRXLYaa%2BfWilA%2BOfi9rgCZqU%3D"
   private readonly counterId = 1;
 
   private hubConnection: signalR.HubConnection;
@@ -164,50 +164,22 @@ export class AppComponent {
   public devices: string[] = ["bla", "bla1"];
   public events: JSON;
   public page: string;
-<<<<<<< HEAD
-  public displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  public dataSource: object[];
-  public errorSubmit: string;
-  public details: string = null
-  public injured: number = null;
-  public url: string;
-  
-=======
 
   // lina:
   public displayedColumns: string[] = ['id', 'city', 'country', 'lat', 'lon','details','bool','number'];
-  public dataSource: object[];
+  public dataSource: object[] = [];
   //lonlat
   private readonly getLonLat = "https://nominatim.openstreetmap.org/lookup?osm_ids=R146006,W100093803,N240109189&format=json";
   public lonlatArr: string[];
 
->>>>>>> fdc0ca8f2d2de3aaa0c385e1338187c49c1eff5b
-  public clientsData: object
-  public alerts: object
-  public ALERTS_DATA:  AlertNode[];
+  public ALERTS_DATA:  AlertNode[] = [];
+  public errorSubmit: string;
+  public details: string = null
+  public injured: number = null;
+  public url: string;
 
   constructor(private readonly http: HttpClient) {
-<<<<<<< HEAD
-=======
-    this.dataSource = [];
->>>>>>> fdc0ca8f2d2de3aaa0c385e1338187c49c1eff5b
-    // this.dataSourceTree.data = TREE_DATA;
-    this.ALERTS_DATA = [];
-    
-
     const negotiateBody = { UserId: "SomeUser" };
-
-
-
-
-    // lina :
-    this.http.get<JSON>(this.getHistoryEvents, this.httpOptions).subscribe(History => {
-      for (var key in History["value"]) {
-        console.log(History)
-        this.CreateHistoryAlerts(History["value"][key])
-      }
-        console.log(this.dataSource)
-    });
 
     //lonlat
     this.http.get<JSON>(this.getLonLat, this.httpOptions).subscribe(lonlat => {
@@ -244,78 +216,69 @@ export class AppComponent {
     // });
 
     this.http.get<JSON>(this.getActiveEvents, this.httpOptions).subscribe(Alerts => {  
-      for (var key in Alerts["value"]) {
-        console.log(Alerts)
-        this.http.get<JSON>(this.getClientData + this.connectionStringStorage, this.httpOptions).subscribe(clientsData => {
-          
+      console.log(Alerts)
+      for (let key in Alerts["value"]) {
+        let query = "$filter=PartitionKey%20eq%20'sample@sample.com'"
+        this.http.get<JSON>(this.getClientData + this.connectionStringStorage , this.httpOptions).subscribe(clientsData => {
+          console.log(Alerts["value"][key])
           this.CreateAlerts(Alerts["value"][key], clientsData["value"]["0"])
         });
       }
       console.log(this.ALERTS_DATA)
+    }); 
+
+    this.http.get<JSON>(this.getHistoryEvents, this.httpOptions).subscribe(History => {
+      for (let key in History["value"]) {
+        console.log(History)
+        this.CreateHistoryAlerts(History["value"][key])
+      }
     });
-
-    // this.http.post(this.addEvent + "/4/1/Tel_Aviv/34353532/3435435/16:00/true/bla/6", this.httpOptions).toPromise()
-    // .catch(e => console.log(e));
-
-    // this.http.get<JSON>(this.deleteCurrent + "/2", this.httpOptions) .subscribe(() => {
-    //   console.log("delete alert");
-    // });;    
-    
+          
   }
 
   public CreateAlerts(alertElement, clientElement): void {
     console.log(alertElement)
     console.log(clientElement)
-    this.ALERTS_DATA.push({alert_obj: alertElement, client_obj: clientElement})  
-    this.printAlertsData(this.ALERTS_DATA["0"]["alert_obj"])    
+    this.ALERTS_DATA.push({alert_obj: alertElement, client_obj: clientElement})     
   }
 
-
-  public printAlertsData(al): void {
-    console.log(al)
+  public CreateHistoryAlerts(event): void{
+    console.log(event)
+    this.dataSource.push(event)
   }
-
-  public increaseCounter(): void {
-    const body = { Id: this.counterId, Count: this.counter++ };
-
-    this.http
-      .post(this.updateCounterUrl, body, this.httpOptions)
-      .toPromise()
-      .catch(e => console.log(e));
-      
-  }
-  public pushButton(): void {
-    const body = { Id: this.counterId, Count: this.counter++ };
-
-    this.http
-      .get(this.pushButtonUrl).subscribe(() => {
-        console.log("called push button");
-      });;      
-  }
+  
 
   public changeToPage(pageName: string): void {
     this.page = pageName
   }
 
   changeDisabled(): boolean{
+    console.log(this.checked)
     this.checked = !this.checked;
+    if(this.checked){
+      this.details = null
+      this.injured = null
+    }
     console.log(this.checked)
     return this.checked;
   }
 
-  addAlert(event: object, client: object): void {
-    console.log(this.injured)
-    console.log(event)
-    console.log(client)
-  }
 
-<<<<<<< HEAD
-  submitEvent(PartitionKey: string, RowKey: string, latitude: string, longitude: string, time: string,
-    is_false_alarm_str: boolean, event_details: string, num_of_injured: number): void{
+  submitEvent(RowKey: string, PartitionKey: string, latitude: string, longitude: string, time: string,
+    is_false_alarm: boolean, event_details: string, num_of_injured: number): void{
       console.log(PartitionKey)
-      this.url = "/" + PartitionKey + "/" + RowKey + "/" + latitude +
+      let is_false_alarm_str = is_false_alarm.toString();
+      if(!this.checked){
+        this.url =  "/" + RowKey + "/" + PartitionKey + "/" + latitude +
+        "/" + longitude + "/" + time + "/" + is_false_alarm_str + "/" + "null" + "/" 
+        + "null" + "/" + "adress";
+      }
+      else{
+              this.url =  "/" + RowKey + "/" + PartitionKey + "/" + latitude +
       "/" + longitude + "/" + time + "/" + is_false_alarm_str + "/" + event_details + "/" 
-      + num_of_injured;
+      + num_of_injured + "/" + "adress";
+      }
+
 
       console.log(this.url)
 
@@ -323,21 +286,15 @@ export class AppComponent {
       .catch(e =>
         this.errorSubmit = stringify(e));
 
-      // this.http.get<JSON>(this.deleteCurrent + "/" + RowKey, this.httpOptions) .subscribe(() => {
-      //     console.log("delete alert");});
+      this.http.get<JSON>(this.deleteCurrent + "/" + RowKey + "/" + PartitionKey
+      , this.httpOptions) .subscribe(() => {
+          console.log("delete alert");});
 
-      
+    location.reload();
 
     }
 
 
-=======
-// lina :
-  public CreateHistoryAlerts(alertElement): void {
-    console.log(alertElement)
-    this.dataSource.push({ alertElement})
-  }
->>>>>>> fdc0ca8f2d2de3aaa0c385e1338187c49c1eff5b
 
 
 }
