@@ -147,14 +147,14 @@ export class AppComponent {
   private readonly updateCounterUrl = "https://cors-anywhere.herokuapp.com/https://counterfunctions20200425175523.azurewebsites.net/api/update-counter";
   private readonly getIotDevicesUrl = "https://cors-anywhere.herokuapp.com/https://counterfunctions20200425175523.azurewebsites.net/api/devices";
   private readonly pushButtonUrl = "https://cors-anywhere.herokuapp.com/https://counterfunctions20200425175523.azurewebsites.net/api/pushButton";
-  private readonly getActiveEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/CurrentAlerts?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
+  private readonly getActiveEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/CurrentAlerts?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-08-08T06:17:45Z&st=2020-06-02T22:17:45Z&spr=https&sig=ez4xdZR94dP9%2FB8Czup%2FRXLYaa%2BfWilA%2BOfi9rgCZqU%3D"
   private readonly getClientData = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/ClientsTable()"
   private readonly addEvent = "http://localhost:7071/api/add-event"
   private readonly deleteCurrent = "http://localhost:7071/api/delete-alert"
   //?$filter=RowKey%20eq%20"
 
   // lina:
-  private readonly getHistoryEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/DetectorsEvents?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-06-04T06:40:57Z&st=2020-05-21T22:40:57Z&spr=https&sig=V2cPiyk9d%2FKKJ0ddPQ8damTnNhHODrPPlFkCHNEiIps%3D"
+  private readonly getHistoryEvents = "https://cors-anywhere.herokuapp.com/https://smokingdetectors.table.core.windows.net/DetectorsEvents?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-08-08T06:17:45Z&st=2020-06-02T22:17:45Z&spr=https&sig=ez4xdZR94dP9%2FB8Czup%2FRXLYaa%2BfWilA%2BOfi9rgCZqU%3D"
 
   private readonly connectionStringStorage = "?sv=2019-10-10&ss=t&srt=sco&sp=rwdlacu&se=2020-08-08T06:17:45Z&st=2020-06-02T22:17:45Z&spr=https&sig=ez4xdZR94dP9%2FB8Czup%2FRXLYaa%2BfWilA%2BOfi9rgCZqU%3D"
   private readonly counterId = 1;
